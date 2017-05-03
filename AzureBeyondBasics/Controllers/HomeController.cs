@@ -15,7 +15,7 @@ namespace AzureBeyondBasics.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page. Deployed from GitHub";
+            ViewBag.Message = "Your application description page. Redeployed from GitHub";
 
             return View();
         }
