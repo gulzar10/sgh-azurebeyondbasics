@@ -1,4 +1,5 @@
 ﻿using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Queue;
 using Microsoft.WindowsAzure.Storage.Table;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,12 @@ namespace AzureBeyondBasics.Controllers
 
             var insertOperation = TableOperation.Insert(customer);
             table.Execute(insertOperation);
+
+            var queueClient = storageAccount.CreateCloudQueueClient();
+            var queue = queueClient.GetQueueReference("customer");
+            queue.CreateIfNotExists();
+            var message = new CloudQueueMessage("New Customer Created ID:" + customer.RowKey + " Name:" + customer.FirstName + " " + customer.LastName);
+            queue.AddMessage(message);
             return View(customer);
         }
     }
