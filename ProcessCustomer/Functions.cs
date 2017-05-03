@@ -14,6 +14,7 @@ namespace ProcessCustomer
         // on an Azure Queue called queue.
         public static void ProcessQueueMessage([QueueTrigger("customer")] string message, TextWriter log)
         {
+            throw new Exception("Poison");
             log.WriteLine(message);
         }
     }
